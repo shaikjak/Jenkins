@@ -39,12 +39,17 @@ pipeline {
             }
         }
     }
-}
-post {
-    always{
+
+    post {
+        always{
+            echo 'Pipeline compeleted'
+        }
         success{
+            echo 'Pipeline succeeded'
         }
-        failure{
+        failure {
+            echo 'Pipeline Failed'
         }
+
     }
 }
