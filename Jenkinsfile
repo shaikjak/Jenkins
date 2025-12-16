@@ -1,36 +1,44 @@
 pipeline {
-    agent any
+    agent {
 
-    stages {
-        stage ('SCM') {
-            steps{
-                echo "clone the repository"
+    }
+    enviroment {
+        Greeetings = "Hello World"
+    }
+    parameters {
 
-            }
+    }
+    options {
+        timeout(time: 30 , unit: MINUTES)
+    }
+    stages{
+        stage 'git clone' {
+            sh " clone the repo"
+
         }
-        stage ('build') {
-            steps{
-                echo "build the code"
+        stage 'build' {
+            sh " build the package"
 
-            }
         }
-        stage ('sonar-scan') {
-            steps{
-                echo "scan the code"
+        stage 'artifact' {
+            sh " generate the artifcat"
 
-            }
         }
-        stage ('docker-image') {
-            steps{
-                echo "create the image"
+        stage 'docker Image' {
+            sh " build the image"
 
-            }
         }
-        stage ('deploy'){
-            steps{
-                echo "deploy in the kubernaties"
+        stage 'deploy' {
+            sh " deply the image"
 
-            }
+        }
+    }
+}
+post {
+    always{
+        success{
+        }
+        failure{
         }
     }
 }
